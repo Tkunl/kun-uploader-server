@@ -1,0 +1,23 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model BizFileInfo {
+  id         String    @id @db.VarChar(50)
+  bucketName String?   @map("bucket_name") @db.VarChar(255)
+  filename   String?   @db.VarChar(255)
+  size       String?   @db.VarChar(100)
+  hash       String    @db.VarChar(255)
+  metaData   String?   @map("meta_data") @db.VarChar(2000)
+  uploadDate DateTime? @map("upload_date") @db.DateTime(0)
+  uploadBy   String?   @map("upload_by") @db.VarChar(50)
+
+  @@index([id])
+  @@index([hash])
+  @@map("biz_file_info")
+}
